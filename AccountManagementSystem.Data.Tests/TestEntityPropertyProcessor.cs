@@ -33,13 +33,13 @@ namespace AccountManagementSystem.Data.Tests
 		[TestCase("")]
 		[TestCase(" ")]
 		[TestCase(null)]
-		public void RemoveProperties_GivenInvalidPropertyToBeRemove_ShouldReturnErrorMessage(string recordToRemove)
+		public void RemoveProperties_GivenInvalidPropertyToBeRemove_ShouldReturnErrorMessage(string propertyNamesToExclude)
 		{
 			//Arrange
 			var listOfProperties = new List<string> { "car", "house", "girlfriend" };
 
 			//Act
-			var actual = EntityPropertyProcessor.RemoveProperties(listOfProperties, recordToRemove);
+			var actual = EntityPropertyProcessor.RemoveProperties(listOfProperties, propertyNamesToExclude);
 
 			//Assert
 			actual.Error.Message.Should().Be("Invalid property name, check your property names.");
@@ -109,38 +109,52 @@ namespace AccountManagementSystem.Data.Tests
 		}
 
 		[Test]
-		public void GetAggregatedTableAndModelFields_WhenCalled_ShouldReturnAggregatedTableAndModelFields()
+		public void GetFormattedQueryStatementBody_WhenCalledWithInsertQueryStatement_ShouldReturnInsertFormattedQueryStatementBody()
 		{
 			//Arrange
 			var expectedListOfProperties = new EntityPropertyProcessorResponse 
 			{ 
-				TableFields = "Id,Name,Age", 
-				ModelFields = "@Id, @Name, @Age"
+				Result = "(Id,Name,Age) values (@Id, @Name, @Age)"
 			};
 
 			//Act
-			var actual = EntityPropertyProcessor.GetAggregatedTableAndModelFields<TestingObject>();
+			var actual = EntityPropertyProcessor.GetFormattedQueryStatementBody<TestingObject>(QueryStatement.InsertQuery);
 
 			//Assert
 			actual.Should().BeEquivalentTo(expectedListOfProperties);
 		}
-
+		
 		[Test]
-		public void GetAggregatedTableAndModelFields_WhenCalledWithPropertyName_ShouldReturnAggregatedFieldsWithoutTheKey()
+		public void GetFormattedQueryStatementBody_WhenCalledWithInsertQueryStatementAndPropertyNameToBeExcluded_ShouldReturnInsertFormattedQueryStatementBodyWithoutExcludedPropertyNames()
 		{
 			//Arrange
 			var propertyToBeRemoved = "Id";
 			var expectedList = new EntityPropertyProcessorResponse
 			{
-				TableFields = "Name,Age",
-				ModelFields = "@Name, @Age"
+				Result = "(Name,Age) values (@Name, @Age)"
 			};
 
 			//Act
-			var actual = EntityPropertyProcessor.GetAggregatedTableAndModelFields<TestingObject>(propertyToBeRemoved);
+			var actual = EntityPropertyProcessor.GetFormattedQueryStatementBody<TestingObject>(QueryStatement.InsertQuery, propertyToBeRemoved);
 
 			//Assert
 			actual.Should().BeEquivalentTo(expectedList);
+		}
+
+		[Test]
+		public void GetFormattedQueryStatementBody_WhenCalledWithUpdateQueryStatement_ShouldReturnUpdateFormattedQueryStatementBody()
+		{
+			//Arrange
+			var expectedListOfProperties = new EntityPropertyProcessorResponse
+			{
+				Result = "Id=@Id, Name=@Name, Age=@Age",
+			};
+
+			//Act
+			var actual = EntityPropertyProcessor.GetFormattedQueryStatementBody<TestingObject>(QueryStatement.UpdateQuery);
+
+			//Assert
+			actual.Should().BeEquivalentTo(expectedListOfProperties);
 		}
 	}
 }
