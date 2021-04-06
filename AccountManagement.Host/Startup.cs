@@ -1,15 +1,10 @@
+using AccountManagementSystem.Service;
+using AccountManagementSystem.Service.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AccountManagementSytem.Host
 {
@@ -21,11 +16,20 @@ namespace AccountManagementSytem.Host
 		}
 
 		public IConfiguration Configuration { get; }
+		//private static string connectionString = Configuration.GetConnectionString("");
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers();
+			services.AddSingleton<IPersonRepository, PersonRepository>();
+			services.AddScoped<IPersonRepository>(c => new PersonRepository(Configuration.GetConnectionString("AMSConnection")));
+
+			services.AddSingleton<IAccountRepository, AccountRepository>();
+			services.AddScoped<IAccountRepository>(c => new AccountRepository(Configuration.GetConnectionString("AMSConnection")));
+
+			services.AddSingleton<ITransactionRepository, TransactionRepository>();
+			services.AddScoped<ITransactionRepository>(c => new TransactionRepository(Configuration.GetConnectionString("AMSConnection")));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

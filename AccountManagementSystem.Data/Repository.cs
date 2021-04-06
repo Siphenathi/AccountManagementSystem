@@ -31,7 +31,7 @@ namespace AccountManagementSystem.Data
 			var result = await connection.QuerySingleOrDefaultAsync<TEntity>(getRecordQuery, new { Id=id });
 
 			if (result == null)
-				throw new KeyNotFoundException($"{_tableName} with {primaryKeyName} [{id}] could not be found.");
+				throw new KeyNotFoundException($"{_tableName[0..^1]} with {primaryKeyName} [{id}] could not be found.");
 			return result;
 		}
 

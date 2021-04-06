@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using AccountManagementSystem.Model;
 using System;
 using System.Transactions;
+using AccountManagementSystem.Service.Interface;
 
 namespace AccountManagementSystem.Service.Tests
 {
@@ -65,7 +66,7 @@ namespace AccountManagementSystem.Service.Tests
 			var exception = Assert.ThrowsAsync<KeyNotFoundException>(() =>  sut.GetPerson(1264949526));
 
 			//Assert
-			Assert.AreEqual("Persons with code [1264949526] could not be found.", exception.Message);
+			Assert.AreEqual("Person with Code [1264949526] could not be found.", exception.Message);
 		}
 
 		[Test]
@@ -88,7 +89,7 @@ namespace AccountManagementSystem.Service.Tests
 		}
 
 		[Test]
-		public async Task UpdatePerson_WhenCalledPerson_ShouldUpdatePerson()
+		public async Task UpdatePerson_WhenCalledWithExistingPerson_ShouldUpdatePerson()
 		{
 			//Arrange
 			var sut = CreatePersonRepository(_connectionString);
@@ -105,7 +106,26 @@ namespace AccountManagementSystem.Service.Tests
 
 			//Assert
 			actual.Should().Be(1);
+		}
 
+		[Test]
+		public void UpdatePerson_WhenCalledWithNonExistentPerson_ShouldThrowArException()
+		{
+			//Arrange
+			var sut = CreatePersonRepository(_connectionString);
+			var person = new Person
+			{
+				Code = 7000,
+				Name = "Nathi",
+				Surname = "Pantshwa Hlanga",
+				Id_Number = "9x01045404082"
+			};
+
+			//act
+			var exception = Assert.ThrowsAsync<KeyNotFoundException>(() => sut.UpdatePersonAsync(person));
+
+			//Assert
+			Assert.AreEqual("Person with Code [7000] could not be found.", exception.Message);
 		}
 
 		[Test]
@@ -119,7 +139,7 @@ namespace AccountManagementSystem.Service.Tests
 			var actual = Assert.ThrowsAsync<KeyNotFoundException>(() => sut.DeletePersonAsync(code));
 
 			//Assert
-			actual.Message.Should().Be("Persons with code [1000] could not be found.");
+			actual.Message.Should().Be("Person with Code [1000] could not be found.");
 		}
 
 		[Test]
@@ -128,7 +148,7 @@ namespace AccountManagementSystem.Service.Tests
 			//Arrange 
 			var sut = CreatePersonRepository(_connectionString);
 			var numberOfRowsAffected = 1;
-			var code = sut.GetAllPeopleAsync().Result.Last().Code;
+			var code = 70;
 
 			//Act
 			var actual = await sut.DeletePersonAsync(code);
@@ -137,9 +157,10 @@ namespace AccountManagementSystem.Service.Tests
 			actual.Should().Be(numberOfRowsAffected);
 		}
 
-		private PersonRepository CreatePersonRepository(string connectionString)
+		private static IPersonRepository CreatePersonRepository(string connectionString)
 		{
-			return new PersonRepository(connectionString);
+			IPersonRepository personRepository = new PersonRepository(connectionString);
+			return personRepository;
 		}
 	}
 }

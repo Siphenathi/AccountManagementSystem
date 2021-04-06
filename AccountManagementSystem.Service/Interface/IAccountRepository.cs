@@ -1,0 +1,16 @@
+﻿using AccountManagementSystem.Model;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace AccountManagementSystem.Service.Interface
+{
+	public interface IAccountRepository
+	{
+		Task<int> AddAccountAsync(Account account);
+		Task<int> DeleteAccountAsync(int code);
+		Task<IEnumerable<Account>> GetAllAccountsAsync();
+		Task<Account> GetAccount(int code);
+		Task<Account> GetAccountWithParentKey(int code);
+		Task<int> UpdateAccountAsync(Account account);
+	}
+}
