@@ -1,5 +1,5 @@
-create database AMSContext;
-use AMSContext;
+create database AMSDatabase;
+use AMSDatabase;
 
 CREATE TABLE Persons(
   code int not null identity(1,1),
@@ -97,6 +97,7 @@ INSERT INTO Persons (id_number,name,surname) VALUES ('76XX2902020XX','','JACOBS'
 INSERT INTO Persons (id_number,name,surname) VALUES ('58XX1802150XX','','GERTENBACH')
 INSERT INTO Persons (id_number,name,surname) VALUES ('78XX1701830XX','','MAMORARE')
 INSERT INTO Persons (id_number,name,surname) VALUES ('45XX2605080XX','','KHUMALO')
+INSERT INTO Persons (id_number,name,surname) VALUES ('4572605080992','Siphenathi', 'No Account')
 GO
 INSERT INTO Accounts (person_code,account_number,outstanding_balance) VALUES ((SELECT TOP(1) code FROM Persons WHERE id_number = '63XX2907910XX'),'10000577',234.99)
 INSERT INTO Accounts (person_code,account_number,outstanding_balance) VALUES ((SELECT TOP(1) code FROM Persons WHERE id_number = '70XX2403660XX'),'10001085',267.61)

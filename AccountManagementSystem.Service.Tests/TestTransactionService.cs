@@ -13,7 +13,7 @@ namespace AccountManagementSystem.Service.Tests
 	[TestFixture]
 	public class TestTransactionService
 	{
-		private const string _connectionString = "Server=(localdb)\\MSSQLLocalDB;Integrated Security=true;Initial Catalog=AMSContext";
+		private const string _connectionString = "Server=(localdb)\\MSSQLLocalDB;Integrated Security=true;Initial Catalog=AMSDatabase";
 		private TransactionScope scope;
 
 		[SetUp]
