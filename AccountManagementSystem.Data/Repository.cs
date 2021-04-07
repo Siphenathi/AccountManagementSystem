@@ -24,6 +24,14 @@ namespace AccountManagementSystem.Data
 			return result;
 		}
 
+		public async Task<IEnumerable<TEntity>> GetAllAsync(int id, string primaryKeyName)
+		{
+			using IDbConnection connection = GetConnection();
+			var result = await connection.QueryAsync<TEntity>($"Select * from {_tableName} where {primaryKeyName}=@Id", new { Id = id });
+
+			return result;
+		}
+
 		public async Task<TEntity> GetAsync(int id, string primaryKeyName)
 		{
 			using IDbConnection connection = GetConnection();

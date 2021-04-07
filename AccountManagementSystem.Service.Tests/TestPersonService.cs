@@ -50,7 +50,7 @@ namespace AccountManagementSystem.Service.Tests
 			var sut = CreatePersonRepository(_connectionString);
 
 			//Act
-			var actual = await sut.GetPerson(1);
+			var actual = await sut.GetPersonAsync(1);
 
 			//Assert
 			actual.Should().NotBeNull();
@@ -63,7 +63,7 @@ namespace AccountManagementSystem.Service.Tests
 			var sut = CreatePersonRepository(_connectionString);
 
 			//Act
-			var exception = Assert.ThrowsAsync<KeyNotFoundException>(() =>  sut.GetPerson(1264949526));
+			var exception = Assert.ThrowsAsync<KeyNotFoundException>(() =>  sut.GetPersonAsync(1264949526));
 
 			//Assert
 			Assert.AreEqual("Person with Code [1264949526] could not be found.", exception.Message);

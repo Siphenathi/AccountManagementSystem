@@ -9,7 +9,7 @@ namespace AccountManagementSystem.Service.Interface
 		Task<int> AddPersonAsync(Person person);
 		Task<int> DeletePersonAsync(int code);
 		Task<IEnumerable<Person>> GetAllPeopleAsync();
-		Task<Person> GetPerson(int code);
+		Task<Person> GetPersonAsync(int code);
 		Task<int> UpdatePersonAsync(Person person);
 	}
 }

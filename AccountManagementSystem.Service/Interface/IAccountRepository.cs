@@ -9,8 +9,9 @@ namespace AccountManagementSystem.Service.Interface
 		Task<int> AddAccountAsync(Account account);
 		Task<int> DeleteAccountAsync(int code);
 		Task<IEnumerable<Account>> GetAllAccountsAsync();
-		Task<Account> GetAccount(int code);
+		Task<Account> GetAccountAsync(int code);
 		Task<Account> GetAccountWithParentKey(int code);
+		Task<bool> AccountExist(int parentCode);
 		Task<int> UpdateAccountAsync(Account account);
 	}
 }

@@ -10,9 +10,8 @@ namespace AccountManagementSystem.Service.Interface
 	{
 		Task<int> AddTransactionAsync(Transaction transaction);
 		Task<int> DeleteTransactionAsync(int code);
-		Task<IEnumerable<Transaction>> GetAllTransactionsAsync();
 		Task<Transaction> GetTransaction(int code);
-		Task<Transaction> GetTransactionWithParentKey(int code);
+		Task<IEnumerable<Transaction>> GetTransactionsWithParentKeyAsync(int code);
 		Task<int> UpdateTransactionAsync(Transaction transaction);
 	}
 }

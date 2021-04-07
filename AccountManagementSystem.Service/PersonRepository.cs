@@ -21,7 +21,7 @@ namespace AccountManagementSystem.Service
 			return await _personRepository.GetAllAsync();
 		}
 
-		public async Task<Person> GetPerson(int code)
+		public async Task<Person> GetPersonAsync(int code)
 		{
 			return await _personRepository.GetAsync(code, _primaryKeyName);
 		}

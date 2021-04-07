@@ -16,20 +16,16 @@ namespace AccountManagementSytem.Host
 		}
 
 		public IConfiguration Configuration { get; }
-		//private static string connectionString = Configuration.GetConnectionString("");
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			string connectionString = Configuration.GetConnectionString("AMSConnection");
+
 			services.AddControllers();
-			services.AddSingleton<IPersonRepository, PersonRepository>();
-			services.AddScoped<IPersonRepository>(c => new PersonRepository(Configuration.GetConnectionString("AMSConnection")));
-
-			services.AddSingleton<IAccountRepository, AccountRepository>();
-			services.AddScoped<IAccountRepository>(c => new AccountRepository(Configuration.GetConnectionString("AMSConnection")));
-
-			services.AddSingleton<ITransactionRepository, TransactionRepository>();
-			services.AddScoped<ITransactionRepository>(c => new TransactionRepository(Configuration.GetConnectionString("AMSConnection")));
+			services.AddScoped<IPersonRepository>(c => new PersonRepository(connectionString));
+			services.AddScoped<IAccountRepository>(c => new AccountRepository(connectionString));
+			services.AddScoped<ITransactionRepository>(c => new TransactionRepository(connectionString));
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

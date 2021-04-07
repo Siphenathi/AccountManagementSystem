@@ -3,6 +3,7 @@ using AccountManagementSystem.Model;
 using AccountManagementSystem.Service.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,18 +25,26 @@ namespace AccountManagementSystem.Service
 			return await _accountRepository.GetAllAsync();
 		}
 
-		public async Task<Account> GetAccount(int code)
+		public async Task<Account> GetAccountAsync(int code)
 		{
 			return await _accountRepository.GetAsync(code, _primaryKeyName);
 		}
 
-		public async Task<Account> GetAccountWithParentKey(int code)
+		public async Task<Account> GetAccountWithParentKey(int parentCode)
 		{
-			return await _accountRepository.GetAsync(code, _parentKeyName);
+			return await _accountRepository.GetAsync(parentCode, _parentKeyName);
+		}
+
+		public async Task<bool> AccountExist(int parentCode)
+		{
+			var accounts = await _accountRepository.GetAllAsync();
+			var account = accounts.ToList().Find(x => x.Person_Code == parentCode);
+			return account != null;
 		}
 
 		public async Task<int> AddAccountAsync(Account account)
 		{
+			account.Account_Number = DigitsGenerator.GetUniqueDigits().ToString();
 			return await _accountRepository.InsertAsync(account, _primaryKeyName);
 		}
 

@@ -29,18 +29,16 @@ namespace AccountManagementSystem.Service.Tests
 		}
 
 		[Test]
-		public async Task GetAllTransactions_WhenCalled_ShouldReturnAllTransactions()
+		public async Task GetTransactionWithParentKey_WhenCalled_ShouldReturnTransaction()
 		{
 			//Arrange
 			var sut = CreateTransactionRepository(_connectionString);
 
 			//Act
-			var actual = await sut.GetAllTransactionsAsync();
-			var dataLength = Enumerable.Count(actual);
+			var actual = await sut.GetTransactionsWithParentKeyAsync(1);
 
 			//Assert
-			Assert.IsTrue(dataLength > 0, "Database must not be empty");
-			Assert.IsTrue(dataLength >= 45, "Database records should be 50 or more");
+			actual.Count().Should().BeGreaterThan(0);
 		}
 
 		[Test]
@@ -51,19 +49,6 @@ namespace AccountManagementSystem.Service.Tests
 
 			//Act
 			var actual = await sut.GetTransaction(1);
-
-			//Assert
-			actual.Should().NotBeNull();
-		}
-
-		[Test]
-		public async Task GetTransactionWithParentKey_WhenCalled_ShouldReturnTransaction()
-		{
-			//Arrange
-			var sut = CreateTransactionRepository(_connectionString);
-
-			//Act
-			var actual = await sut.GetTransactionWithParentKey(1);
 
 			//Assert
 			actual.Should().NotBeNull();

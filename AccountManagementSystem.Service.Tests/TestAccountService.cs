@@ -49,7 +49,7 @@ namespace AccountManagementSystem.Service.Tests
 			var sut = CreateAccountRepository(_connectionString);
 
 			//Act
-			var actual = await sut.GetAccount(1);
+			var actual = await sut.GetAccountAsync(1);
 
 			//Assert
 			actual.Should().NotBeNull();
@@ -75,7 +75,7 @@ namespace AccountManagementSystem.Service.Tests
 			var sut = CreateAccountRepository(_connectionString);
 
 			//Act
-			var exception = Assert.ThrowsAsync<KeyNotFoundException>(() => sut.GetAccount(1264949526));
+			var exception = Assert.ThrowsAsync<KeyNotFoundException>(() => sut.GetAccountAsync(1264949526));
 
 			//Assert
 			Assert.AreEqual("Account with Code [1264949526] could not be found.", exception.Message);
@@ -167,6 +167,34 @@ namespace AccountManagementSystem.Service.Tests
 
 			//Assert
 			actual.Should().Be(numberOfRowsAffected);
+		}
+
+		[Test]
+		public async Task AccountExist_WhenCalledWithExistentParentCode_ShouldTrueAccountExist()
+		{
+			//Arrange
+			var sut = CreateAccountRepository(_connectionString);
+			var parentCode = 29;
+
+			//Act
+			var actual = await sut.AccountExist(parentCode);
+
+			//Assert
+			actual.Should().Be(true);
+		}
+
+		[Test]
+		public async Task AccountExist_WhenCalledWithNonExistentParentCode_ShouldFalseAccountDoesNotExist()
+		{
+			//Arrange
+			var sut = CreateAccountRepository(_connectionString);
+			var parentCode = 200000;
+
+			//Act
+			var actual = await sut.AccountExist(parentCode);
+
+			//Assert
+			actual.Should().Be(false);
 		}
 
 		private IAccountRepository CreateAccountRepository(string connectionString)
