@@ -8,4 +8,4 @@
 9. open this folder (account-management-system-ui) in visual studio code, this is the front end project
 10. first install node packages (npm install)
 11. then npm start to run the front-end app
-12. Lastly, open this link in your browser http://localhost:4200/ if you have another app running at this port number look at your log terminal for a different port number
+12. Lastly, open this link in your browser type http://localhost:4200/ if you have another app running at this port number look at your log terminal for a different port number
