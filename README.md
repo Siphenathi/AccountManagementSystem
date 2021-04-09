@@ -1,7 +1,7 @@
   ## This Application consist of the Back-end and Frond-end
-  *The Back-end is built with Asp.Net core 3.1
-  * The Frond-end with Angular 11.2.8
-  
+  * The Back-end is built with C# Asp.Net core 3.1
+  * The Frond-end with Angular 11.2.8 and Typescript 4.1.5
+
 1. Clone the repo
 2. Open the back end project first, look for .sln file inside the root folder.
 3. double click and open it.
