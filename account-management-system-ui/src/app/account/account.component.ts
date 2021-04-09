@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {RepositoryService} from '../shared/repository.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogBoxComponent } from './dialog-box/dialog-box.component';
+import { AccountDialogBoxComponent } from './dialog-box/dialog-box.component';
 import {account} from './_interface/account.model';
 import { NotificationService } from '../shared/Notification.service';
 import { NotificationType } from '../shared/notification.message';
@@ -37,7 +37,7 @@ export class AccountComponent implements OnInit {
   
   public openDialog(action: any, data: any) {
     data.action = action;
-    const dialogRef = this.dialog.open(DialogBoxComponent, {
+    const dialogRef = this.dialog.open(AccountDialogBoxComponent, {
       width: '284px',
       data: data
     });

@@ -7,11 +7,11 @@ import { transaction } from '../_interface/transaction.model';
   templateUrl: './dialog-box.component.html',
   styleUrls: ['./dialog-box.component.css']
 })
-export class DialogBoxComponent {
+export class TransactionDialogBoxComponent {
   action: string;
   local_data: any;
 
-  constructor(    public dialogRef: MatDialogRef<DialogBoxComponent>,
+  constructor(    public dialogRef: MatDialogRef<TransactionDialogBoxComponent>,
   @Optional() @Inject(MAT_DIALOG_DATA) public data: transaction) { 
     this.local_data = {...data};
     this.action = this.local_data.action;

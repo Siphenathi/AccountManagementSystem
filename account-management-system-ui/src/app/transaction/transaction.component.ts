@@ -3,7 +3,7 @@ import {RepositoryService} from '../shared/repository.service';
 import { MatTableDataSource, MatTable } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogBoxComponent } from './dialog-box/dialog-box.component';
+import { TransactionDialogBoxComponent } from './dialog-box/dialog-box.component';
 import {transaction} from './_interface/transaction.model';
 import { MatSort } from '@angular/material/sort';
 import { NotificationService } from '../shared/Notification.service';
@@ -37,7 +37,7 @@ export class TransactionComponent implements OnInit {
     
     public openDialog(action: any, data: any) {
       data.action = action;
-      const dialogRef = this.dialog.open(DialogBoxComponent, {
+      const dialogRef = this.dialog.open(TransactionDialogBoxComponent, {
         width: '284px',
         data: data
       });

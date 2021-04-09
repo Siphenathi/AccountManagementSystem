@@ -7,12 +7,12 @@ import { person } from '../_interface/person.model';
   templateUrl: './dialog-box.component.html',
   styleUrls: ['./dialog-box.component.css']
 })
-export class DialogBoxComponent {
+export class PersonDialogBoxComponent {
   action: string;
   local_data: any;
 
   constructor(
-    public dialogRef: MatDialogRef<DialogBoxComponent>,
+    public dialogRef: MatDialogRef<PersonDialogBoxComponent>,
   @Optional() @Inject(MAT_DIALOG_DATA) public data: person) {       
   
     this.local_data = {...data};

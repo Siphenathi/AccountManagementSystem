@@ -27,7 +27,9 @@ import { ToastrModule } from "ngx-toastr";
 import { ContactComponent } from './contact/contact.component';
 import { PersonComponent } from './person/person.component';
 import { RepositoryService } from './shared/repository.service';
-import { DialogBoxComponent } from './person/dialog-box/dialog-box.component';
+import { PersonDialogBoxComponent } from './person/dialog-box/dialog-box.component';
+import {AccountDialogBoxComponent} from './account/dialog-box/dialog-box.component'
+import {TransactionDialogBoxComponent} from './transaction/dialog-box/dialog-box.component'
 import { NotificationMessage } from './shared/notification.message';
 import { AccountComponent } from './account/account.component';
 import { TransactionComponent } from './transaction/transaction.component';
@@ -40,7 +42,7 @@ import { TransactionComponent } from './transaction/transaction.component';
     AboutComponent,
     ContactComponent,
     PersonComponent,
-    DialogBoxComponent,
+    PersonDialogBoxComponent,
     AccountComponent,
     TransactionComponent
   ],
@@ -66,7 +68,12 @@ import { TransactionComponent } from './transaction/transaction.component';
     MatDialogModule,
     ToastrModule.forRoot()
   ],
-  entryComponents: [DialogBoxComponent],
+  entryComponents: 
+  [
+    PersonDialogBoxComponent, 
+    AccountDialogBoxComponent, 
+    TransactionDialogBoxComponent
+  ],
   providers: [RepositoryService, NotificationMessage],
   bootstrap: [AppComponent]
 })
