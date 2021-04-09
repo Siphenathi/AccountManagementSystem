@@ -10,11 +10,37 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { AboutComponent } from './about/about.component';
+import { HomeComponent } from './home/home.component';
+import { MatTableModule } from '@angular/material/table';
+import {HttpClientModule} from'@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import {MatPaginatorModule } from '@angular/material/paginator';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ToastrModule } from "ngx-toastr";
+// import { Router } from '@angular/router';
+
+import { ContactComponent } from './contact/contact.component';
+import { PersonComponent } from './person/person.component';
+import { RepositoryService } from './shared/repository.service';
+import { DialogBoxComponent } from './person/dialog-box/dialog-box.component';
+import { NotificationMessage } from './shared/notification.message';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainNavComponent
+    MainNavComponent,
+    HomeComponent,
+    AboutComponent,
+    ContactComponent,
+    PersonComponent,
+    DialogBoxComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
@@ -25,9 +51,21 @@ import { MatListModule } from '@angular/material/list';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatPaginatorModule,
+    MatGridListModule,
+    MatDialogModule,
+    ToastrModule.forRoot()
   ],
-  providers: [],
+  entryComponents: [DialogBoxComponent],
+  providers: [RepositoryService, NotificationMessage],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

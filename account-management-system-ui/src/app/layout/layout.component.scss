@@ -1,0 +1,55 @@
+.nav-container{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  mat-toolbar {
+    top: 0;
+    width: 100%;
+    padding: 0;
+    box-shadow: 0 0 17px 0 rgb(0, 0, 0);
+    height: 50px;
+  }
+  
+  .fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100% !important;
+    opacity: 85%;
+  }
+  
+  // Buttons
+  button.btn {
+    outline: 0;
+  
+    :focus {
+      cursor: pointer;
+      background: #292929;
+    }
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  .menu-space{
+    flex: 1 1 auto;
+  }
+  
+  mat-sidenav{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex: 1 0 auto;
+    z-index: 2;
+  }
+  

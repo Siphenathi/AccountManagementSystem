@@ -2,6 +2,7 @@ using AccountManagementSystem.Service;
 using AccountManagementSystem.Service.Interface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,9 +21,16 @@ namespace AccountManagementSytem.Host
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			string connectionString = Configuration.GetConnectionString("AMSConnection");
+			services.AddCors(options =>
+			{
+				options.AddPolicy("default",
+					builder => builder.AllowAnyOrigin()
+					.AllowAnyMethod()
+					.AllowAnyHeader());
+			});
+			services.AddControllers(options => options.EnableEndpointRouting = false);
 
-			services.AddControllers();
+			string connectionString = Configuration.GetConnectionString("AMSConnection");
 			services.AddScoped<IPersonRepository>(c => new PersonRepository(connectionString));
 			services.AddScoped<IAccountRepository>(c => new AccountRepository(connectionString));
 			services.AddScoped<ITransactionRepository>(c => new TransactionRepository(connectionString));
@@ -35,16 +43,13 @@ namespace AccountManagementSytem.Host
 			{
 				app.UseDeveloperExceptionPage();
 			}
-
-			app.UseHttpsRedirection();
-
+			//app.UseStaticFiles();
 			app.UseRouting();
-
-			app.UseAuthorization();
+			app.UseCors("default");
 
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapControllers();
+				endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
 			});
 		}
 	}
