@@ -1,5 +1,6 @@
 import { Component, Inject, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CommonModule } from '@angular/common';  
 import { account } from '../_interface/account.model';
 
 @Component({

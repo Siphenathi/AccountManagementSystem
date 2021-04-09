@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CommonModule } from '@angular/common';  
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainNavComponent } from './main-nav/main-nav.component';
@@ -22,8 +23,6 @@ import {MatPaginatorModule } from '@angular/material/paginator';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ToastrModule } from "ngx-toastr";
-// import { Router } from '@angular/router';
-
 import { ContactComponent } from './contact/contact.component';
 import { PersonComponent } from './person/person.component';
 import { RepositoryService } from './shared/repository.service';
@@ -44,7 +43,9 @@ import { TransactionComponent } from './transaction/transaction.component';
     PersonComponent,
     PersonDialogBoxComponent,
     AccountComponent,
-    TransactionComponent
+    TransactionComponent,
+    TransactionDialogBoxComponent,
+    AccountDialogBoxComponent
   ],
   imports: [
     BrowserModule,
@@ -66,6 +67,7 @@ import { TransactionComponent } from './transaction/transaction.component';
     MatPaginatorModule,
     MatGridListModule,
     MatDialogModule,
+    CommonModule,
     ToastrModule.forRoot()
   ],
   entryComponents: 
