@@ -1,6 +1,6 @@
 import { Component, Inject, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { account } from './../_interface/account.model';
+import { account } from '../_interface/account.model';
 
 @Component({
   selector: 'app-dialog-box',
@@ -14,7 +14,7 @@ export class DialogBoxComponent {
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
   @Optional() @Inject(MAT_DIALOG_DATA) public data: account) {       
-    console.log('from dialog, data: ', data);
+
     this.local_data = {...data};
     this.action = this.local_data.action;
   }
@@ -26,5 +26,4 @@ export class DialogBoxComponent {
   closeDialog(){
     this.dialogRef.close({event:'Cancel'});
   }
-
 }

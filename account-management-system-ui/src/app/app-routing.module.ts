@@ -6,14 +6,17 @@ import { AboutComponent } from './about/about.component';
 import { ContactComponent } from './contact/contact.component';
 import {PersonComponent} from './person/person.component';
 import {AccountComponent} from './account/account.component';
+import {TransactionComponent} from './transaction/transaction.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full' },
+  {path: '***', redirectTo: '/home', pathMatch: 'full' },
   {path: 'about', component: AboutComponent },
   {path: 'contact', component: ContactComponent },
   {path: 'people', component: PersonComponent },
-  {path: 'account', component: AccountComponent }
+  {path: 'account', component: AccountComponent },
+  {path: 'transaction', component: TransactionComponent }
 ];
 
 @NgModule({

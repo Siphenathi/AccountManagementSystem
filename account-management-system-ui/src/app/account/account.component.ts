@@ -1,11 +1,9 @@
-import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {RepositoryService} from '../shared/repository.service';
-import { MatTableDataSource, MatTable } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
 import {account} from './_interface/account.model';
-import { MatSort } from '@angular/material/sort';
 import { NotificationService } from '../shared/Notification.service';
 import { NotificationType } from '../shared/notification.message';
 import { Router } from '@angular/router';
@@ -16,22 +14,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  public displayedColumns = ['code', 'name', 'surname', 'id_number', 'details', 'update', 'delete'];
+  public displayedColumns = ['code', 'person_Code', 'account_Number', 'outstanding_Balance', 'details', 'update', 'delete'];
   public dataSource = new MatTableDataSource<account>();
   public numberOfRowsAffected = 0;
+  private personCode = 0;
+  public tempArray : Array<any> = []; 
 
-  @ViewChild(MatTable) table: MatTable<account>;
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private service: RepositoryService, public dialog: MatDialog, private notificationService: NotificationService, 
     private changeDetectorRefs: ChangeDetectorRef, private router: Router) { 
-      console.log(this.router.getCurrentNavigation().extras.state)
+
+      var state = this.router.getCurrentNavigation().extras.state;
+      this.personCode = state.id as unknown as number
     }
 
+  public redirectToTransaction(data: any){
+    this.router.navigateByUrl('/transaction', {state:{id:data.code}});
+  }
+
   public ngOnInit(): void {
-    console.log(this.router.getCurrentNavigation().extras.state)
-    // console.log(this.router.getCurrentNavigation().extras.state);
-    this.getAccountsWithParentKey();
+    this.getAccount();    
   }
   
   public openDialog(action: any, data: any) {
@@ -47,46 +48,25 @@ export class AccountComponent implements OnInit {
       else if(result.event == 'delete')
         this.deleteRowData(result.data.code);
       else if(result.event == 'detail')
-        this.getRowData(result.data.code)
+        this.getAccount();
     });
   }
 
   deleteRowData(account: account) {
     this.deleteAccount(account.code);
-    this.getAccountsWithParentKey(account.person_code);
-    this.table.renderRows();
+    this.getAccount();
   }
 
   addRowData(account: account) {
     this.saveAccount(account);
-    this.getAccountsWithParentKey(account.person_code);
-    this.table.renderRows();
-  }
-  getRowData(code: number){
-    this.getAccount(code);
+    this.getAccount();
   }
 
-  public ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-  }
-  public doFilter = (value: string) => {
-    this.dataSource.filter = value.trim().toLocaleLowerCase();
-  }
-
-  private getAccountsWithParentKey = (parentCode?: number) => {
-    if(parentCode !== 0)
-    this.service.getData(`account/GetAccountWithParentKey/${parentCode}`).subscribe( res => {
-      this.dataSource.data = res as account[];   
-    });
-    else
-    this.service.getData(`account/get`).subscribe( res => {
-      this.dataSource.data = res as account[];   
-    });
-  }
-  private getAccount = (code: number) => {
-    this.service.getData(`account/get/${code}`).subscribe( res => {
-      this.numberOfRowsAffected = res as number;
+  private getAccount = () => {
+    this.service.getData(`account/GetAccountWithParentKey/${this.personCode}`).subscribe( res => {
+      this.tempArray.push(res);
+      this.dataSource.data = this.tempArray as account[];
+      this.tempArray = [];
     },
     error => {
       this.notificationService.sendMessage({

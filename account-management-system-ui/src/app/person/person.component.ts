@@ -9,7 +9,6 @@ import { MatSort } from '@angular/material/sort';
 import { NotificationService } from '../shared/Notification.service';
 import { NotificationType } from '../shared/notification.message';
 import { Router } from '@angular/router';
-import { account } from '../account/_interface/account.model';
 
 @Component({
   selector: 'app-person',
@@ -32,10 +31,8 @@ export class PersonComponent implements OnInit {
     this.getAllPeople();
   }
 
-  public redirectToAccount(data: account){
-    var person_code = data.person_code;
-    // this.router.navigate(['account'], { state: {data: person_code} });
-    this.router.createUrlTree(['/account', person_code]);
+  public redirectToAccount(data: any){
+    this.router.navigateByUrl('/account', {state:{id:data.code}});
   }
   
   public openDialog(action: any, data: any) {

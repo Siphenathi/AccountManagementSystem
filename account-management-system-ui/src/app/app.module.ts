@@ -30,6 +30,7 @@ import { RepositoryService } from './shared/repository.service';
 import { DialogBoxComponent } from './person/dialog-box/dialog-box.component';
 import { NotificationMessage } from './shared/notification.message';
 import { AccountComponent } from './account/account.component';
+import { TransactionComponent } from './transaction/transaction.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AccountComponent } from './account/account.component';
     ContactComponent,
     PersonComponent,
     DialogBoxComponent,
-    AccountComponent
+    AccountComponent,
+    TransactionComponent
   ],
   imports: [
     BrowserModule,

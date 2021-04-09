@@ -1,0 +1,25 @@
+<h1 mat-dialog-title><strong>{{action}} Transaction</strong></h1>
+<div mat-dialog-content>
+  <mat-form-field *ngIf="action != 'delete';">
+    <input placeholder="{{action}} Account Code" matInput [(ngModel)]="local_data.account_Code" required>
+  </mat-form-field>
+  <mat-form-field *ngIf="action != 'delete';">
+    <input placeholder="{{action}} Amount" matInput [(ngModel)]="local_data.amount " required>
+  </mat-form-field>
+  <mat-form-field *ngIf="action != 'delete';">
+    <input placeholder="{{action}} Description" matInput [(ngModel)]="local_data.description " required>
+  </mat-form-field>
+  <mat-form-field *ngIf="action != 'delete'; else elseTemplate">
+    <input placeholder="{{action}} Transaction Date" matInput [(ngModel)]="local_data.transaction_Date" required>
+  </mat-form-field>
+  <mat-form-field *ngIf="action != 'delete';">
+    <input placeholder="{{action}} Capture Date" matInput [(ngModel)]="local_data.capture_Date " required>
+  </mat-form-field>
+  <ng-template #elseTemplate>
+    Sure to delete <b>{{local_data.description}}</b>?<br/>
+  </ng-template>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="doAction()">{{action}}</button>
+  <button mat-button (click)="closeDialog()" mat-flat-button color="warn">Cancel</button>
+</div>
