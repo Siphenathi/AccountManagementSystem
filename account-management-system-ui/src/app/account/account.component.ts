@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  public displayedColumns = ['code', 'person_Code', 'account_Number', 'outstanding_Balance', 'details', 'update', 'delete'];
+  public displayedColumns = ['code', 'person_Code', 'account_Number', 'outstanding_Balance', 'details', 'delete'];
   public dataSource = new MatTableDataSource<account>();
   public numberOfRowsAffected = 0;
   private personCode = 0;
@@ -52,8 +52,8 @@ export class AccountComponent implements OnInit {
     });
   }
 
-  deleteRowData(account: account) {
-    this.deleteAccount(account.code);
+  deleteRowData(code: number) {
+    this.deleteAccount(code);
     this.getAccount();
   }
 
